@@ -1,9 +1,9 @@
 {
-  "name": "@semantic-release/commit-analyzer",
+  "name": "semantic-release-lerna-analyzer",
   "description": "derive next semantic version from commits",
-  "author": "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
+  "author": "Joshua Nelson <jonelson@atlassian.com>",
   "bugs": {
-    "url": "https://github.com/semantic-release/commit-analyzer/issues"
+    "url": "https://github.com/atlassian/semeantic-release-lerna-analyzer/issues"
   },
   "config": {
     "nyc": {
@@ -12,9 +12,6 @@
         "node_modules"
       ]
     }
-  },
-  "dependencies": {
-    "conventional-changelog": "0.0.17"
   },
   "devDependencies": {
     "babel": "^5.5.8",
@@ -42,7 +39,7 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/semantic-release/commit-analyzer.git"
+    "url": "git+https://github.com/atlassian/semeantic-release-lerna-analyzer.git"
   },
   "scripts": {
     "build": "rimraf dist && mkdirp dist && babel src --out-dir dist",
@@ -53,5 +50,8 @@
     "test": "npm run test:style && npm run test:suite",
     "test:style": "standard",
     "test:suite": "nyc tap --no-cov .test/{scenarios,specs}/*.js"
+  },
+  "dependencies": {
+    "@semantic-release/commit-analyzer": "2.0.0"
   }
 }

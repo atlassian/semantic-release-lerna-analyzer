@@ -1,26 +1,15 @@
-const { parseRawCommit } = require('conventional-changelog/lib/git')
+import commitAnalyzer from '@semantic-release/commit-analyzer';
 
-module.exports = function (pluginConfig, {commits}, cb) {
-  let type = null
+module.exports = function (pluginConfig, config, cb) {
+  const {pkg, commits} = config;
+  const relevantCommits = commits.filter(({message}) => {
+    const affectsLine = message.split('\n\n')[1];
+    return affectsLine && affectsLine.indexOf('affects:') === 0 && affectsLine.indexOf(pkg.name) > -1;
+  });
 
-  commits
 
-  .map((commit) => parseRawCommit(`${commit.hash}\n${commit.message}`))
-
-  .filter((commit) => !!commit)
-
-  .every((commit) => {
-    if (commit.breaks.length) {
-      type = 'major'
-      return false
-    }
-
-    if (commit.type === 'feat') type = 'minor'
-
-    if (!type && commit.type === 'fix') type = 'patch'
-
-    return true
-  })
-
-  cb(null, type)
-}
+  commitAnalyzer(pluginConfig, Object.assign(config, {commits: relevantCommits}), function (err, type) {
+    console.log(type);
+    cb(err, type);
+  });
+};
