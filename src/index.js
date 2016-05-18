@@ -7,9 +7,7 @@ module.exports = function (pluginConfig, config, cb) {
     return affectsLine && affectsLine.indexOf('affects:') === 0 && affectsLine.indexOf(pkg.name) > -1;
   });
 
-
   commitAnalyzer(pluginConfig, Object.assign(config, {commits: relevantCommits}), function (err, type) {
-    console.log(type);
     cb(err, type);
   });
 };

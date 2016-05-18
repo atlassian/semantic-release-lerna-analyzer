@@ -19,7 +19,6 @@
     "mkdirp": "^0.5.1",
     "nyc": "^3.0.0",
     "rimraf": "^2.4.0",
-    "standard": "^4.2.1",
     "tap": "^1.2.0"
   },
   "homepage": "https://github.com/semantic-release/commit-analyzer#readme",
@@ -47,8 +46,7 @@
     "coverage": "nyc report",
     "coverage:upload": "npm run coverage -- --reporter=lcovonly && coveralls < coverage/lcov.info",
     "pretest:suite": "npm run build && npm run build:tests",
-    "test": "npm run test:style && npm run test:suite",
-    "test:style": "standard",
+    "test": "npm run test:suite",
     "test:suite": "nyc tap --no-cov .test/{scenarios,specs}/*.js"
   },
   "dependencies": {

@@ -1,10 +1,10 @@
-const { test } = require('tap')
+const { test } = require('tap');
 
-const analyzer = require('../../dist')
+const analyzer = require('../../dist');
 
 test('derive version number from commits', (t) => {
   t.test('no change', (tt) => {
-    tt.plan(2)
+    tt.plan(2);
 
     analyzer({}, {
       commits: [{
@@ -12,13 +12,13 @@ test('derive version number from commits', (t) => {
         message: 'chore: build script'
       }]
     }, (err, type) => {
-      tt.error(err)
+      tt.error(err);
       tt.is(type, null)
     })
-  })
+  });
 
-  t.test('patch version', (tt) => {
-    tt.plan(2)
+  t.test('no change for features if component is unaffected', (tt) => {
+    tt.plan(2);
 
     analyzer({}, {
       commits: [{
@@ -29,47 +29,12 @@ test('derive version number from commits', (t) => {
         message: 'fix(scope): even nastier bug'
       }]
     }, (err, type) => {
-      tt.error(err)
-      tt.is(type, 'patch')
+      tt.error(err);
+      tt.is(type, null)
     })
-  })
+  });
 
-  t.test('minor/feature version', (tt) => {
-    tt.plan(2)
-
-    analyzer({}, {
-      commits: [{
-        hash: 'asdf',
-        message: 'fix: nasty bug'
-      }, {
-        hash: '1234',
-        message: 'feat(scope): cool feature'
-      }]
-    }, (err, type) => {
-      tt.error(err)
-      tt.is(type, 'minor')
-    })
-  })
-
-  t.test('major/breaking version', (tt) => {
-    tt.plan(2)
-
-    analyzer({}, {
-      commits: [{
-        hash: 'qwer',
-        message: 'feat(something): even cooler feature\nBREAKING CHANGE: everything so broken'
-      }, {
-        hash: '1234',
-        message: 'feat(scope): cool feature'
-      }, {
-        hash: 'asdf',
-        message: 'fix: nasty bug'
-      }]
-    }, (err, type) => {
-      tt.error(err)
-      tt.is(type, 'major')
-    })
-  })
+  //TODO: write tests for package based behaviour
 
   t.end()
-})
+});
