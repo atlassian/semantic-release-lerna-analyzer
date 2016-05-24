@@ -1,6 +1,6 @@
 {
   "name": "semantic-release-lerna-analyzer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "derive next semantic version from commits",
   "author": "Joshua Nelson <jonelson@atlassian.com>",
   "bugs": {
